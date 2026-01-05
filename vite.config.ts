@@ -2,8 +2,7 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-    base: '/automize-flow/',
-    plugins: [
+  base: '/',    plugins: [
         tailwindcss(),
     ],
 })
