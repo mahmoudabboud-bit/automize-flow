@@ -332,7 +332,7 @@ app.innerHTML = `
           </div>
 
           <div class="reveal" style="transition-delay: 200ms">
-            <form id="contact-form" action="https://formspree.io/f/mbdlbwer" method="POST" class="glass p-8 md:p-12 space-y-10">
+            <div class="glass p-8 md:p-12 space-y-10">
               <div class="grid md:grid-cols-2 gap-10">
                 <div class="relative group">
                   <input type="text" id="name" name="name" required placeholder=" " class="peer w-full bg-transparent border-b-2 border-white/10 py-3 focus:outline-none focus:border-brand-accent transition-colors text-white placeholder-transparent font-medium">
@@ -351,11 +351,11 @@ app.innerHTML = `
                 <textarea id="message" name="message" rows="3" required placeholder=" " class="peer w-full bg-transparent border-b-2 border-white/10 py-3 focus:outline-none focus:border-brand-accent transition-colors text-white placeholder-transparent resize-none font-medium"></textarea>
                 <label for="message" class="absolute left-0 top-3 text-brand-text-secondary transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-accent peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-accent cursor-text">What would you like to automate?</label>
               </div>
-              <button type="submit" class="btn-primary w-full py-5 text-xl group shadow-xl">
-                Send Request
+              <a href="https://calendly.com/mahmoud-automizeflow/30min" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-5 text-xl group shadow-xl no-underline inline-flex items-center justify-center">
+                Book an appointment
                 <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
-              </button>
-            </form>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -428,50 +428,3 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 
-// Form Logic
-const form = document.getElementById('contact-form') as HTMLFormElement
-form?.addEventListener('submit', async (e) => {
-  e.preventDefault()
-  const btn = form.querySelector('button')
-  if (!btn) return
-
-  const originalText = btn.innerHTML
-  btn.innerHTML = 'Sending...'
-  btn.disabled = true
-
-  const formData = new FormData(form)
-
-  try {
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-
-    if (response.ok) {
-      btn.innerHTML = 'Request Sent!'
-      btn.classList.replace('bg-gradient-to-br', 'bg-green-600')
-      btn.classList.add('scale-95')
-      form.reset()
-    } else {
-      const data = await response.json()
-      if (data.errors) {
-        btn.innerHTML = data.errors.map((error: any) => error.message).join(', ')
-      } else {
-        btn.innerHTML = 'Error! Try again.'
-      }
-      btn.classList.add('bg-red-600')
-    }
-  } catch (error) {
-    btn.innerHTML = 'Network Error! Try again.'
-    btn.classList.add('bg-red-600')
-  }
-
-  setTimeout(() => {
-    btn.innerHTML = originalText
-    btn.disabled = false
-    btn.classList.remove('bg-green-600', 'bg-red-600', 'bg-blue-600', 'scale-95')
-  }, 5000)
-})
