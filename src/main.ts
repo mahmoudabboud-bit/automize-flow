@@ -20,7 +20,7 @@ app.innerHTML = `
     <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="relative w-16 h-16 overflow-hidden rounded-full shadow-2xl shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
-          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
+          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.5]">
         </div>
         <span class="text-3xl font-outfit font-extrabold tracking-tight">Automize<span class="text-brand-accent">Flow</span></span>
       </div>
@@ -368,7 +368,7 @@ app.innerHTML = `
     <div class="container mx-auto px-6 text-center relative z-10">
       <div class="flex items-center justify-center gap-5 mb-10 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="relative w-20 h-20 overflow-hidden rounded-full group-hover:scale-110 transition-transform duration-500">
-          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
+          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.5]">
         </div>
         <span class="text-4xl font-outfit font-extrabold tracking-tight">AutomizeFlow</span>
       </div>
