@@ -1,7 +1,6 @@
 import './style.css'
 import {
   createIcons,
-  Zap,
   ChevronRight,
   ShieldCheck,
   Clock,
@@ -21,7 +20,7 @@ app.innerHTML = `
     <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="relative w-16 h-16 overflow-hidden rounded-full shadow-2xl shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
-          <img src="/logo-new.jpg" alt="Automize Flow Logo" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
+          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
         </div>
         <span class="text-3xl font-outfit font-extrabold tracking-tight">Automize<span class="text-brand-accent">Flow</span></span>
       </div>
@@ -352,7 +351,7 @@ app.innerHTML = `
                 <label for="message" class="absolute left-0 top-3 text-brand-text-secondary transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-accent peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-accent cursor-text">What would you like to automate?</label>
               </div>
               <a href="https://calendly.com/mahmoud-automizeflow/30min" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-5 text-xl group shadow-xl no-underline inline-flex items-center justify-center">
-                Book an appointment
+                Book Discovery Call
                 <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
               </a>
             </div>
@@ -369,7 +368,7 @@ app.innerHTML = `
     <div class="container mx-auto px-6 text-center relative z-10">
       <div class="flex items-center justify-center gap-5 mb-10 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="relative w-20 h-20 overflow-hidden rounded-full group-hover:scale-110 transition-transform duration-500">
-          <img src="/logo-new.jpg" alt="Automize Flow Logo" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
+          <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.25]">
         </div>
         <span class="text-4xl font-outfit font-extrabold tracking-tight">AutomizeFlow</span>
       </div>
@@ -387,7 +386,6 @@ app.innerHTML = `
 // Initialize Icons
 createIcons({
   icons: {
-    Zap,
     ChevronRight,
     ShieldCheck,
     Clock,
@@ -400,8 +398,21 @@ createIcons({
   }
 })
 
-// Navbar Effect
-window.addEventListener('scroll', () => {
+// Debounce utility for performance
+function debounce(func: (args?: any) => void, wait: number) {
+  let timeout: ReturnType<typeof setTimeout>
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
+
+// Navbar Effect (Debounced)
+const handleScroll = debounce(() => {
   const nav = document.getElementById('navbar')
   if (window.scrollY > 50) {
     nav?.classList.add('bg-brand-bg/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4')
@@ -410,7 +421,9 @@ window.addEventListener('scroll', () => {
     nav?.classList.remove('bg-brand-bg/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4')
     nav?.classList.add('py-6')
   }
-})
+}, 10)
+
+window.addEventListener('scroll', handleScroll)
 
 // Reveal Animation Observer
 const observerOptions = {
@@ -427,4 +440,48 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions)
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+
+// Form Validation
+const handleFormSubmit = (e: Event) => {
+  const form = e.target as HTMLFormElement
+  const nameInput = form.querySelector('#name') as HTMLInputElement
+  const emailInput = form.querySelector('#email') as HTMLInputElement
+  const companyInput = form.querySelector('#company') as HTMLInputElement
+  const messageInput = form.querySelector('#message') as HTMLTextAreaElement
+
+  // Basic validation
+  if (!nameInput.value.trim()) {
+    alert('Please enter your name')
+    nameInput.focus()
+    return false
+  }
+  if (!companyInput.value.trim()) {
+    alert('Please enter your company name')
+    companyInput.focus()
+    return false
+  }
+  if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    alert('Please enter a valid email address')
+    emailInput.focus()
+    return false
+  }
+  if (!messageInput.value.trim()) {
+    alert('Please tell us what you would like to automate')
+    messageInput.focus()
+    return false
+  }
+  return true
+}
+
+// Attach form validation
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form')
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      if (!handleFormSubmit(e)) {
+        e.preventDefault()
+      }
+    })
+  }
+})
 
