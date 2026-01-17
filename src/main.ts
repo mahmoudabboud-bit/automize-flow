@@ -9,14 +9,15 @@ import {
   MessageSquare,
   Globe,
   PhoneCall,
-  ArrowRight
+  ArrowRight,
+  Zap
 } from 'lucide'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
 app.innerHTML = `
   <!-- Navigation -->
-  <nav id="navbar" class="fixed top-0 w-full z-50 py-6 transition-all duration-500">
+  <nav id="navbar" class="fixed top-0 w-full z-50 py-6 transition-all duration-500" role="navigation" aria-label="Main Navigation">
     <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <div class="relative w-16 h-16 overflow-hidden rounded-full shadow-2xl shadow-brand-accent/40 group-hover:scale-110 transition-transform duration-500">
@@ -25,14 +26,14 @@ app.innerHTML = `
         <span class="text-3xl font-outfit font-extrabold tracking-tight">Automize<span class="text-brand-accent">Flow</span></span>
       </div>
       <div class="hidden md:flex items-center gap-10">
-        <a href="#solutions" class="text-brand-text-secondary hover:text-white transition-colors font-medium text-sm tracking-wide">Solutions</a>
-        <a href="#why" class="text-brand-text-secondary hover:text-white transition-colors font-medium text-sm tracking-wide">Why Us</a>
-        <a href="#contact" class="btn-secondary py-2.5 px-6 rounded-xl text-sm leading-none">Book Discovery Call</a>
+        <a href="#solutions" class="text-brand-text-secondary hover:text-white transition-colors font-medium text-sm tracking-wide" aria-label="View Solutions section">Solutions</a>
+        <a href="#why" class="text-brand-text-secondary hover:text-white transition-colors font-medium text-sm tracking-wide" aria-label="View Why Us section">Why Us</a>
+        <a href="#contact" class="btn-secondary py-2.5 px-6 rounded-xl text-sm leading-none" aria-label="Book a Discovery Call">Book Discovery Call</a>
       </div>
     </div>
   </nav>
 
-  <main>
+  <main id="main-content" tabindex="-1" role="main">
     <!-- Background Elements -->
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
       <div class="orb w-[600px] h-[600px] bg-brand-accent top-[-200px] left-[-200px]"></div>
@@ -58,11 +59,11 @@ app.innerHTML = `
           </p>
           
           <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-6" style="transition-delay: 600ms">
-            <a href="#contact" class="btn-primary group text-lg px-10 py-5 no-underline">
+            <a href="#contact" class="btn-primary group text-lg px-10 py-5 no-underline" aria-label="Book a Free Consultation">
               Book a Free Consultation
               <i data-lucide="chevron-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
             </a>
-            <a href="#solutions" class="group flex items-center gap-2 text-brand-text-primary font-bold text-lg hover:text-brand-accent transition-colors no-underline">
+            <a href="#solutions" class="group flex items-center gap-2 text-brand-text-primary font-bold text-lg hover:text-brand-accent transition-colors no-underline" aria-label="View Solutions">
               View Solutions
               <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -118,13 +119,13 @@ app.innerHTML = `
     </section>
 
     <!-- Solutions Section -->
-    <section id="solutions" class="py-32 relative overflow-hidden">
+    <section id="solutions" class="py-32 relative overflow-hidden" aria-labelledby="solutions-heading">
       <!-- Glow -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-accent/5 blur-[150px] rounded-full pointer-events-none"></div>
       
       <div class="container mx-auto px-6 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-24 reveal">
-          <h2 class="text-5xl md:text-6xl mb-6 font-outfit">Expert Solutions for Modern Teams</h2>
+          <h2 class="text-5xl md:text-6xl mb-6 font-outfit" id="solutions-heading">Expert Solutions for Modern Teams</h2>
           <p class="text-xl text-brand-text-secondary font-medium">We build high-performance automation systems that integrate deeply with your business logic.</p>
         </div>
 
@@ -233,11 +234,11 @@ app.innerHTML = `
     </section>
 
     <!-- Why Section -->
-    <section id="why" class="py-32 relative">
+    <section id="why" class="py-32 relative" aria-labelledby="why-heading">
       <div class="container mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-20 items-center">
           <div class="reveal">
-            <h2 class="text-5xl md:text-6xl mb-8 font-outfit tracking-tight">Why Automize Flow?</h2>
+            <h2 class="text-5xl md:text-6xl mb-8 font-outfit tracking-tight" id="why-heading">Why Automize Flow?</h2>
             <div class="space-y-10">
               <div class="flex gap-6 group">
                 <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
@@ -306,11 +307,11 @@ app.innerHTML = `
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-32">
+    <section id="contact" class="py-32" aria-labelledby="contact-heading">
       <div class="container mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-20">
           <div class="reveal">
-            <h2 class="text-5xl md:text-6xl mb-8 font-outfit tracking-tight">Let's Build Your System</h2>
+            <h2 class="text-5xl md:text-6xl mb-8 font-outfit tracking-tight" id="contact-heading">Let's Build Your System</h2>
             <p class="text-xl text-brand-text-secondary mb-12 leading-relaxed font-medium">
               Start your automation journey with a no-obligation workflow audit and discovery roadmap.
             </p>
@@ -350,7 +351,7 @@ app.innerHTML = `
                 <textarea id="message" name="message" rows="3" required placeholder=" " class="peer w-full bg-transparent border-b-2 border-white/10 py-3 focus:outline-none focus:border-brand-accent transition-colors text-white placeholder-transparent resize-none font-medium"></textarea>
                 <label for="message" class="absolute left-0 top-3 text-brand-text-secondary transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-brand-accent peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-brand-accent cursor-text">What would you like to automate?</label>
               </div>
-              <a href="https://calendly.com/mahmoud-automizeflow/30min" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-5 text-xl group shadow-xl no-underline inline-flex items-center justify-center">
+              <a href="https://calendly.com/mahmoud-automizeflow/30min" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-5 text-xl group shadow-xl no-underline inline-flex items-center justify-center" aria-label="Book Discovery Call via Calendly">
                 Book Discovery Call
                 <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
               </a>
@@ -366,7 +367,7 @@ app.innerHTML = `
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[300px] bg-brand-accent/5 blur-[100px] rounded-full pointer-events-none"></div>
     
     <div class="container mx-auto px-6 text-center relative z-10">
-      <div class="flex items-center justify-center gap-5 mb-10 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <div class="flex items-center justify-center gap-5 mb-10 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top" role="button" tabindex="0">
         <div class="relative w-20 h-20 overflow-hidden rounded-full group-hover:scale-110 transition-transform duration-500">
           <img src="/logo-new.jpg" alt="Automize Flow Logo" loading="lazy" class="absolute inset-0 w-full h-full object-cover scale-[1.5]">
         </div>
@@ -374,9 +375,9 @@ app.innerHTML = `
       </div>
       <p class="text-brand-text-secondary mb-6 max-w-md mx-auto font-medium leading-relaxed">Expert systems for business workflow automation and practical AI consulting.</p>
       <div class="flex justify-center gap-8 mb-12">
-        <a href="#solutions" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline">Solutions</a>
-        <a href="#why" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline">Why Automize Flow</a>
-        <a href="#contact" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline">Contact</a>
+        <a href="#solutions" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline" aria-label="Footer Solutions">Solutions</a>
+        <a href="#why" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline" aria-label="Footer Why Automize Flow">Why Automize Flow</a>
+        <a href="#contact" class="text-sm font-semibold text-brand-text-secondary hover:text-white transition-colors no-underline" aria-label="Footer Contact">Contact</a>
       </div>
       <p class="text-xs font-bold tracking-[0.3em] uppercase text-white/10">© 2026 Automize Flow Agency</p>
     </div>
@@ -394,7 +395,8 @@ createIcons({
     MessageSquare,
     Globe,
     PhoneCall,
-    ArrowRight
+    ArrowRight,
+    Zap
   }
 })
 

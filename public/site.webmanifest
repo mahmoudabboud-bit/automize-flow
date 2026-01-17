@@ -1,0 +1,21 @@
+{
+  "name": "Automize Flow",
+  "short_name": "AutomizeFlow",
+  "description": "Premium AI automation agency delivering consultant-led AI systems.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0c12",
+  "theme_color": "#60a5fa",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
