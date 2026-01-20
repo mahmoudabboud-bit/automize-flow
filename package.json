@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/update-sitemap.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext .ts",
